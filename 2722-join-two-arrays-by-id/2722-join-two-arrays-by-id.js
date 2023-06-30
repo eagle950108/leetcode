@@ -4,20 +4,17 @@
  * @return {Array}
  */
 var join = function(arr1, arr2) {
-    const resultAry = []
-    const obj1 = Object.fromEntries(arr1.map(val => [val.id, val]));
-    const obj2 = Object.fromEntries(arr2.map(val => [val.id, val]));
-    
-    let tmpObj = {...obj1, ...obj2};
+    const result = {};
+    for (let i = 0; i < arr1.length; i++) {
+        result[arr1[i].id] = arr1[i];
+    } 
+    for (let i = 0; i < arr2.length; i++) {
+        if (result[arr2[i].id]) {
+            for (const key in arr2[i]) result[arr2[i].id][key] = arr2[i][key];  
+        } else {
+            result[arr2[i].id] = arr2[i];
+        }
+    } 
 
-    const key1 = Object.keys(obj1);
-    const key2 = Object.keys(obj2);
-    Object.keys(tmpObj).forEach((key) => {
-     if (obj1[key] && obj2[key]) {
-        resultAry.push({...obj1[key], ...obj2[key]});
-      } else {
-        resultAry.push(obj1[key] || obj2[key]);
-      }
-    });
-    return resultAry;
+    return Object.values(result);
 };
