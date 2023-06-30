@@ -10,7 +10,7 @@ var join = function(arr1, arr2) {
     } 
     for (let i = 0; i < arr2.length; i++) {
         if (result[arr2[i].id]) {
-            result[arr2[i].id] = {...result[arr2[i].id], ...arr2[i]}; 
+            for (const key in arr2[i]) result[arr2[i].id][key] = arr2[i][key];  
         } else {
             result[arr2[i].id] = arr2[i];
         }
