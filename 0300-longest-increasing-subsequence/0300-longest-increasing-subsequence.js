@@ -3,19 +3,20 @@
  * @return {number}
  */
 var lengthOfLIS = function(nums) {
-    const stack = [];
-    
-    for(var i = 0;i < nums.length; i++) {
-        let isBig = false;
-        for(var j = 0; j < stack.length; j++) {
-            if(stack[j] >= nums[i]) {
-                stack[j] = nums[i];
-                isBig = true;
-                break;
+    if (nums.length === 0) {
+        return 0;
+    }
+
+    const n = nums.length;
+    const dp = new Array(n).fill(1);
+
+    for (let i = 1; i < n; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
             }
         }
-        if(!isBig) stack.push(nums[i]);
     }
-    
-    return stack.length;
+
+    return Math.max(...dp);
 };
