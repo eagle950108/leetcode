@@ -4,6 +4,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        result = 0
+        
         for num in nums:
-            if nums.count(num) == 1:
-                return num
+            result ^= num
+        
+        return result
